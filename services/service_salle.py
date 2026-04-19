@@ -3,3 +3,17 @@ from data.dao_salle import DataSalle
 class ServiceSalle:
     def __init__(self):
         self.dao_salle = DataSalle()
+    def ajouter_salle(self, salle):
+        if salle.code == "" or salle.description == "" or salle.categorie == "":
+             return False, "Il manque des informations"
+
+        if salle.capacite < 1:
+             return False, "Capacité doit être >= 1"
+        self.dao_salle.insert_salle(
+        salle.code,
+        salle.description,
+        salle.categorie,
+        salle.capacite
+    )
+
+        return True, "Salle ajoutée avec succès"
