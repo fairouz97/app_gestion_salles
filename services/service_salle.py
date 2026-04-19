@@ -31,3 +31,6 @@ class ServiceSalle:
         )
 
         return True, "Salle modifiée"
+    def supprimer_salle(self, code):
+        self.dao_salle.delete_salle(code)
+        return True, "Salle supprimée"
