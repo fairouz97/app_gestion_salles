@@ -23,3 +23,14 @@ def insert_salle(code, description, categorie, capacite):
 
     cursor.close()
     conn.close()
+def delete_salle(code):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = "DELETE FROM salle WHERE code = %s"
+    cursor.execute(query, (code,))
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
