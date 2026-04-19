@@ -34,3 +34,20 @@ def delete_salle(code):
 
     cursor.close()
     conn.close()
+def update_salle(code, description, categorie, capacite):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = """
+    UPDATE salle 
+    SET description=%s, categorie=%s, capacite=%s
+    WHERE code=%s
+    """
+
+    values = (description, categorie, capacite, code)
+
+    cursor.execute(query, values)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
