@@ -11,3 +11,15 @@ def get_connection():
         password=config["password"],
         database=config["database"]
     )
+def insert_salle(code, description, categorie, capacite):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = "INSERT INTO salle (code, description, categorie, capacite) VALUES (%s, %s, %s, %s)"
+    values = (code, description, categorie, capacite)
+
+    cursor.execute(query, values)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
