@@ -17,3 +17,17 @@ class ServiceSalle:
     )
 
         return True, "Salle ajoutée avec succès"
+    def modifier_salle(self, salle):
+        # vérifier capacité
+        if salle.capacite < 1:
+            return False, "Capacité invalide"
+
+        # mise à jour
+        self.dao_salle.update_salle(
+            salle.code,
+            salle.description,
+            salle.categorie,
+            salle.capacite
+        )
+
+        return True, "Salle modifiée"
