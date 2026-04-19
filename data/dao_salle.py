@@ -51,3 +51,14 @@ def update_salle(code, description, categorie, capacite):
 
     cursor.close()
     conn.close()
+def get_all_salles():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM salle")
+    results = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return results
