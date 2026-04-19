@@ -62,3 +62,14 @@ def get_all_salles():
     conn.close()
 
     return results
+def get_salle(code):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM salle WHERE code = %s"
+    cursor.execute(query, (code,))
+
+    result = cursor.fetchone()
+
+    conn.close()
+    return result

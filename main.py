@@ -26,3 +26,7 @@ salles = get_all_salles()
 
 for salle in salles:
     print(salle)
+from data.dao_salle import get_salle
+
+salle = get_salle("S3")
+print("Salle trouvée :", salle)
