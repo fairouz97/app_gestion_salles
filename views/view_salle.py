@@ -46,7 +46,11 @@ class ViewSalle(ctk.CTk):
         self.btnModifier = ctk.CTkButton(self.cadreActions, text="Modifier")
         self.btnModifier.grid(row=0, column=1, padx=10, pady=10)
 
-        self.btnSupprimer = ctk.CTkButton(self.cadreActions, text="Supprimer")
+        self.btnSupprimer = ctk.CTkButton(
+            self.cadreActions,
+            text="Supprimer",
+            command=self.supprimer_salle
+        )
         self.btnSupprimer.grid(row=0, column=2, padx=10, pady=10)
 
         self.btnRechercher = ctk.CTkButton(self.cadreActions, text="Rechercher")
@@ -68,4 +72,14 @@ class ViewSalle(ctk.CTk):
         salle = Salle(code, description, categorie, capacite)
 
         result = self.service_salle.ajouter_salle(salle)
+        print(result)
+
+    def supprimer_salle(self):
+        code = self.entryCode.get()
+
+        if code == "":
+            print("Code requis")
+            return
+
+        result = self.service_salle.supprimer_salle(code)
         print(result)
