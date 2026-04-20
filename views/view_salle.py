@@ -43,7 +43,11 @@ class ViewSalle(ctk.CTk):
         )
         self.btnAjouter.grid(row=0, column=0, padx=10, pady=10)
 
-        self.btnModifier = ctk.CTkButton(self.cadreActions, text="Modifier")
+        self.btnModifier = ctk.CTkButton(
+            self.cadreActions,
+            text="Modifier",
+            command=self.modifier_salle
+        )
         self.btnModifier.grid(row=0, column=1, padx=10, pady=10)
 
         self.btnSupprimer = ctk.CTkButton(
@@ -82,4 +86,22 @@ class ViewSalle(ctk.CTk):
             return
 
         result = self.service_salle.supprimer_salle(code)
+        print(result)
+
+    def modifier_salle(self):
+        code = self.entryCode.get()
+        description = self.entryDescription.get()
+        categorie = self.entryCategorie.get()
+        capacite = self.entryCapacite.get()
+
+        try:
+            capacite = int(capacite)
+        except:
+            print("Capacité invalide")
+            return
+
+        from models.salle import Salle
+        salle = Salle(code, description, categorie, capacite)
+
+        result = self.service_salle.modifier_salle(salle)
         print(result)
