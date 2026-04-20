@@ -47,3 +47,21 @@ class ViewSalle(ctk.CTk):
 
         self.btnRechercher = ctk.CTkButton(self.cadreActions, text="Rechercher")
         self.btnRechercher.grid(row=0, column=3, padx=10, pady=10)
+
+    def ajouter_salle(self):
+        code = self.entryCode.get()
+        description = self.entryDescription.get()
+        categorie = self.entryCategorie.get()
+        capacite = self.entryCapacite.get()
+
+        try:
+            capacite = int(capacite)
+        except:
+            print("Capacité invalide")
+            return
+
+        from models.salle import Salle
+        salle = Salle(code, description, categorie, capacite)
+
+        result = self.service_salle.ajouter_salle(salle)
+        print(result)
