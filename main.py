@@ -1,32 +1,23 @@
-from data.dao_salle import get_connection
+from services.service_salle import ServiceSalle
+from models.salle import Salle
 
-try:
-    conn = get_connection()
-    print("Connexion réussie ")
-    conn.close()
-except Exception as e:
-    print("Erreur :", e)
-from data.dao_salle import insert_salle
+service = ServiceSalle()
 
-insert_salle("S2", "Salle test", "Classe", 30)
-print("Salle ajoutée")
-from data.dao_salle import delete_salle
+# afficher salles
+print("Liste des salles :")
+for s in service.recuperer_salles():
+    print(s)
 
-delete_salle("S2")
-print("Salle supprimée")
-from data.dao_salle import update_salle
+# ajouter
+s1 = Salle("S500", "Salle test service", "Classe", 20)
+print(service.ajouter_salle(s1))
 
-###insert_salle("S3", "Salle test", "Classe", 30)
+# modifier
+s2 = Salle("S500", "Salle modifiée service", "Labo", 40)
+print(service.modifier_salle(s2))
 
-update_salle("S3", "Salle modifiée", "Labo", 50)
-print("Salle mise à jour")
-from data.dao_salle import get_all_salles
+# rechercher
+print("Recherche :", service.rechercher_salle("S500"))
 
-salles = get_all_salles()
-
-for salle in salles:
-    print(salle)
-from data.dao_salle import get_salle
-
-salle = get_salle("S3")
-print("Salle trouvée :", salle)
+# supprimer
+print(service.supprimer_salle("S500"))
