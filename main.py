@@ -21,3 +21,6 @@ print("Recherche :", service.rechercher_salle("S500"))
 
 # supprimer
 print(service.supprimer_salle("S500"))
+#afficher liste des salles
+print("Liste des salles :")
+print(service.recuperer_salles())
