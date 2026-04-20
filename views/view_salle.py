@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from tkinter import ttk
 from services.service_salle import ServiceSalle
 
 class ViewSalle(ctk.CTk):
@@ -63,6 +64,30 @@ class ViewSalle(ctk.CTk):
             command=self.rechercher_salle
         )
         self.btnRechercher.grid(row=0, column=3, padx=10, pady=10)
+        # Cadre Liste des salles
+        self.cadreList = ctk.CTkFrame(self, corner_radius=10)
+        self.cadreList.pack(pady=10, padx=10)
+
+        self.treeList = ttk.Treeview(
+            self.cadreList,
+            columns=("code", "description", "categorie", "capacite"),
+            show="headings"
+        )
+
+        # En-têtes
+        self.treeList.heading("code", text="CODE")
+        self.treeList.heading("description", text="Description")
+        self.treeList.heading("categorie", text="Catégorie")
+        self.treeList.heading("capacite", text="Capacité")
+
+        # Largeur
+        self.treeList.column("code", width=80)
+        self.treeList.column("description", width=150)
+        self.treeList.column("categorie", width=100)
+        self.treeList.column("capacite", width=100)
+
+        self.treeList.pack(expand=True, fill="both")
+        self.lister_salles()
 
     def ajouter_salle(self):
         code = self.entryCode.get()
@@ -129,3 +154,11 @@ class ViewSalle(ctk.CTk):
             self.entryCapacite.insert(0, result[3])
         else:
             print("Salle non trouvée")
+
+    def lister_salles(self):
+        self.treeList.delete(*self.treeList.get_children())
+
+        liste = self.service_salle.recuperer_salles()
+
+        for s in liste:
+            self.treeList.insert("", "end", values=(s[0], s[1], s[2], s[3]))
